@@ -1,6 +1,8 @@
 package telran.util;
 //HW_5 Ilya_L after corrections 23.10.21   
- 
+
+// V.K. It looks Ok now
+
 import java.util.Arrays;
 
 public class ArrayList<T> implements List<T> {
