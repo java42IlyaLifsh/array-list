@@ -89,13 +89,27 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public int indexOf(T pattern) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int res = -1;
+		for (int i = 0; i < size; i++) {
+			if (array[i].equals(pattern)) {
+				res = i;
+				break;
+			}
+		}
+		return res;
 	}
 	@Override
 	public int lastIndexOf(T pattern) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int res = -1;
+		for (int i = size - 1; i >=0 ; i--) {
+			if (array[i].equals(pattern)) {
+				res = i;
+				break;
+			}
+		}
+		return res;
 	}
 	@Override
 	public boolean contains(Predicate<T> predicate) {
@@ -110,18 +124,36 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public int indexOf(Predicate<T> predicate) {
-		// TODO Auto-generated method stub
-		return 0;
+				int res = -1;
+				for (int i = 0; i < size; i++) {
+					if (predicate.test(array[i])) {
+						res = i;
+						break;
+					}
+				}
+				return res;
 	}
 	@Override
 	public int lastIndexOf(Predicate<T> predicate) {
-		// TODO Auto-generated method stub
-		return 0;
+				int res = -1;
+				for (int i = size - 1; i >=0 ; i--) {
+					if (predicate.test(array[i])) {
+						res = i;
+						break;
+					}
+				}
+				return res;
 	}
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
-		// TODO Auto-generated method stub
-		return false;
+		int oldSize = size;
+		for (int i = size - 1; i >= 0; i--) {
+			if (predicate.test(array[i])) {
+				remove(i);
+			}
+		}
+		
+		return oldSize > size;
 	}
 
 }
