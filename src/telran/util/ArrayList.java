@@ -80,7 +80,7 @@ public class ArrayList<T> implements List<T> {
 	}
 	
 	
-	
+	 
 	
 	@Override
 	public int indexOf(Predicate<T> predicate) {
