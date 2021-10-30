@@ -118,8 +118,9 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public void sort(Comparator<T> comp) {
-		// TODO Auto-generated method stub
-		
+		T arTemp[] = Arrays.copyOf(array, size); // to sort only the significant part of the array (index< size)
+		Arrays.sort(arTemp, comp);
+		System.arraycopy(arTemp, 0, array, 0, size);
 	}
 	
 
