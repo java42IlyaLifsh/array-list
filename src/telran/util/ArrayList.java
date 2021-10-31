@@ -118,7 +118,7 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public void sort(Comparator<T> comp) {
-		// TODO Auto-generated method stub
+		Arrays.sort(array, 0, size, comp);
 		
 	}
 	
