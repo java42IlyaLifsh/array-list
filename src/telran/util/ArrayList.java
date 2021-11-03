@@ -17,6 +17,7 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public void add(T element) {
+		//O[1]
 		if (size == array.length) {
 			//size is capacity
 			allocate();
@@ -33,6 +34,7 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public boolean add(int index, T element) {
+		//O[N]
 		boolean res = false;
 		if (index == size) {
 			add(element);
@@ -52,13 +54,13 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public int size() {
-		
+		//O[1]
 		return size;
 	}
 
 	@Override
 	public T get(int index) {
-		
+		//O[1]
 		return isValidIndex(index) ? array[index] : null;
 	}
 
@@ -68,6 +70,7 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public T remove(int index) {
+		//O[N]
 		T res = null;
 		if (isValidIndex(index)) {
 			res = array[index];
@@ -84,6 +87,7 @@ public class ArrayList<T> implements List<T> {
 	
 	@Override
 	public int indexOf(Predicate<T> predicate) {
+		//O[N]
 				int res = -1;
 				for (int i = 0; i < size; i++) {
 					if (predicate.test(array[i])) {
@@ -95,7 +99,7 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public int lastIndexOf(Predicate<T> predicate) {
-		
+		//O[N]
 				int res = -1;
 				for (int i = size - 1; i >=0 ; i--) {
 					if (predicate.test(array[i])) {
@@ -107,6 +111,7 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
+		//O[N^2]
 		int oldSize = size;
 		for (int i = size - 1; i >= 0; i--) {
 			if (predicate.test(array[i])) {
@@ -115,9 +120,11 @@ public class ArrayList<T> implements List<T> {
 		}
 		
 		return oldSize > size;
+		//TODO rewrite the method for O[N] complexity
 	}
 	@Override
 	public void sort(Comparator<T> comp) {
+		//O[N * LogN]
 		Arrays.sort(array, 0, size, comp);
 		
 	}
