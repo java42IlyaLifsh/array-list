@@ -111,11 +111,14 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
-		//O[N^2]
+		//O[N]
 		int oldSize = size;
-		for (int i = size - 1; i >= 0; i--) {
+		int indCopy = 0;
+		for (int i = 0; i < oldSize; i++) {
 			if (predicate.test(array[i])) {
-				remove(i);
+				size--;
+			} else {
+				array[indCopy++] = array[i];
 			}
 		}
 		
@@ -126,6 +129,35 @@ public class ArrayList<T> implements List<T> {
 	public void sort(Comparator<T> comp) {
 		//O[N * LogN]
 		Arrays.sort(array, 0, size, comp);
+		
+	}
+	@Override
+	public int sortedSearch(T pattern, Comparator<T> comp) {
+		//implied that array is sorted in accordance with a given comparator
+		int left = 0;
+		int right = size - 1;
+		int middle = 0;
+		int res = -1;
+		while (left <= right) {
+			middle = (left + right) / 2;
+			int resComp = comp.compare(pattern, array[middle]);
+			if (resComp == 0) {
+				res = middle;
+				break;
+			}
+			if (resComp > 0) {
+				left = middle + 1;
+			} else {
+				right = middle - 1;
+			}
+		}
+		return  left > right ? -(left + 1) : res;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public void clear() {
+		array = (T[]) new Object[DEFAULT_CAPACITY];
+		size = 0;
 		
 	}
 	
