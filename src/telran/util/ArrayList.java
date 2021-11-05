@@ -124,15 +124,17 @@ public class ArrayList<T> implements List<T> {
 		// rewrite the method for O[N] complexity
 		 * 
 		 */
-		int oldSize= size;
-		int itogSize = size;
-		for (int i = size - 1; i >= 0; i--) {
-			if (predicate.test(array[i])) {
-				array[i]=array[itogSize-1];
-				itogSize--;
+				
+		int oldSize = size;
+		int itogCopy = 0;
+		for(int i=0; i<oldSize; i++) {
+			if(predicate.negate().test(array[i])) {
+				array[itogCopy] = array[i];
+				itogCopy++;
 			}
 		}
-		return oldSize > itogSize;
+		size = itogCopy;
+		return oldSize > size;
 	}
 	@Override
 	public void sort(Comparator<T> comp) {
@@ -148,14 +150,7 @@ public class ArrayList<T> implements List<T> {
 		int res =  -1;
 		while (left<= right) {
 			middle = (left-right) / 2;
-/* 
- * 			Except for the next line, 
-			which does not work when an element is found in the array, 
-			everything else is similar to the text of Yuri's program in the class. 
-			Why is she giving an error even in this case ??? 
-			I have been trying to figure it out all morning, I couldn’t help. 
-			Please help.
-*/
+
 			res = (-1  * middle) -1;
 			int resComp = comp.compare(pattern, array[middle]);
 			if (resComp==0) {
@@ -164,8 +159,10 @@ public class ArrayList<T> implements List<T> {
 			}
 			if (resComp>0) {
 				left = middle + 1;
+				res = (-1 * middle) - 2;
 			} else {
 				right = middle-1;
+				res = (-1 * middle) - 1;
 			}
 			
 		}
