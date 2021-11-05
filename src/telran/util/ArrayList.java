@@ -129,6 +129,9 @@ public class ArrayList<T> implements List<T> {
 		int itogCopy = 0;
 		for(int i=0; i<oldSize; i++) {
 			if(predicate.negate().test(array[i])) {
+				/* V.R. The following looks better
+				 * array[itogCopy++] = array[i];
+				 */
 				array[itogCopy] = array[i];
 				itogCopy++;
 			}
@@ -159,9 +162,11 @@ public class ArrayList<T> implements List<T> {
 			}
 			if (resComp>0) {
 				left = middle + 1;
+				// V.R. (-1*middle) is -middle. Exactly!
 				res = (-1 * middle) - 2;
 			} else {
 				right = middle-1;
+				// V.R. (-1*middle) is -middle. Exactly!
 				res = (-1 * middle) - 1;
 			}
 			
