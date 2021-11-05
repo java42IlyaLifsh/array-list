@@ -1,5 +1,5 @@
 package telran.util;
-
+//HW_10 IlyaL
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.function.Predicate;
@@ -112,6 +112,7 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
 		//O[N^2]
+		/*
 		int oldSize = size;
 		for (int i = size - 1; i >= 0; i--) {
 			if (predicate.test(array[i])) {
@@ -120,13 +121,60 @@ public class ArrayList<T> implements List<T> {
 		}
 		
 		return oldSize > size;
-		//TODO rewrite the method for O[N] complexity
+		// rewrite the method for O[N] complexity
+		 * 
+		 */
+		int oldSize= size;
+		int itogSize = size;
+		for (int i = size - 1; i >= 0; i--) {
+			if (predicate.test(array[i])) {
+				array[i]=array[itogSize-1];
+				itogSize--;
+			}
+		}
+		return oldSize > itogSize;
 	}
 	@Override
 	public void sort(Comparator<T> comp) {
 		//O[N * LogN]
 		Arrays.sort(array, 0, size, comp);
 		
+	}
+	@Override
+	public int sortedSearch(T pattern, Comparator<T> comp) {
+		int left=0;
+		int right = size-1;
+		int middle = 0;
+		int res =  -1;
+		while (left<= right) {
+			middle = (left-right) / 2;
+/* 
+ * 			Except for the next line, 
+			which does not work when an element is found in the array, 
+			everything else is similar to the text of Yuri's program in the class. 
+			Why is she giving an error even in this case ??? 
+			I have been trying to figure it out all morning, I couldn’t help. 
+			Please help.
+*/
+			res = (-1  * middle) -1;
+			int resComp = comp.compare(pattern, array[middle]);
+			if (resComp==0) {
+				res = middle;
+				break;
+			}
+			if (resComp>0) {
+				left = middle + 1;
+			} else {
+				right = middle-1;
+			}
+			
+		}
+		return res;
+	}
+	@Override
+	public void clear() {
+		array = (T[]) new Object[DEFAULT_CAPACITY];
+		size = 0;
 	}
 	
 
