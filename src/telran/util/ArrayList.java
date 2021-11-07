@@ -128,6 +128,7 @@ public class ArrayList<T> implements List<T> {
 		int oldSize = size;
 		int itogCopy = 0;
 		for(int i=0; i<oldSize; i++) {
+			//[YG] in this case better to apply operator ! rather than the method negate
 			if(predicate.negate().test(array[i])) {
 				array[itogCopy] = array[i];
 				itogCopy++;
@@ -159,13 +160,16 @@ public class ArrayList<T> implements List<T> {
 			}
 			if (resComp>0) {
 				left = middle + 1;
+				//[YG] unneeded statement in the loop
 				res = (-1 * middle) - 2;
 			} else {
 				right = middle-1;
+				//[YG] unneeded statement in the loop
 				res = (-1 * middle) - 1;
 			}
 			
 		}
+		//[YG] think of another solution with update only "return" statement without unneeded ones inside the loop
 		return res;
 	}
 	@Override
