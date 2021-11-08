@@ -2,12 +2,32 @@ package telran.util;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.function.Predicate;
 
 public class ArrayList<T> implements List<T> {
 	private static final int DEFAULT_CAPACITY = 16;
 	private T[] array;
 	private int size = 0; 
+	private class ArrayListIterator implements Iterator<T> {
+
+		@Override
+		public boolean hasNext() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public T next() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		@Override
+		public void remove() {
+			//TODO removes element that has been received from the last next()
+			
+		}
+	}
 	@SuppressWarnings("unchecked")
 	public ArrayList(int capacity) {
 		array = (T[]) new Object[capacity];
@@ -122,7 +142,7 @@ public class ArrayList<T> implements List<T> {
 		size = indCopy;
 		
 		return oldSize > size;
-		//TODO rewrite the method for O[N] complexity
+		//FIXME 
 	}
 	@Override
 	public void sort(Comparator<T> comp) {
@@ -157,7 +177,13 @@ public class ArrayList<T> implements List<T> {
 	public void clear() {
 		array = (T[]) new Object[DEFAULT_CAPACITY];
 		size = 0;
+		//FIXME
 		
+	}
+	@Override
+	public Iterator<T> iterator() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 
