@@ -1,13 +1,38 @@
 package telran.util;
+//HW_11_Ilya_L
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.function.Predicate;
 
 public class ArrayList<T> implements List<T> {
 	private static final int DEFAULT_CAPACITY = 16;
 	private T[] array;
 	private int size = 0; 
+	
+	private class ArrayListIterator implements Iterator<T> {
+		int currentInd = 0;
+		 
+		@Override
+		public boolean hasNext() {
+			return currentInd < size;
+		
+		}
+
+		@Override
+		public T next() {
+			// FIXME check currentIndex and throwing exception
+			return array[currentInd++];
+	
+		}
+		@Override
+		public void remove() {
+			//removes element that has been returned by the last next call
+			//that is previous of the current.
+			ArrayList.this.remove(currentInd-1);
+		} 
+	}
 	@SuppressWarnings("unchecked")
 	public ArrayList(int capacity) {
 		array = (T[]) new Object[capacity];
@@ -111,22 +136,59 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
-		//O[N^2]
 		int oldSize = size;
-		for (int i = size - 1; i >= 0; i--) {
-			if (predicate.test(array[i])) {
-				remove(i);
-			}
+		int indCopy = 0;
+		for (int i = 0; i < oldSize; i++) {
+			if (!predicate.test(array[i])) {
+				array[indCopy++] = array[i];
+			} 
 		}
+		size = indCopy;
 		
 		return oldSize > size;
-		//TODO rewrite the method for O[N] complexity
+		//rewrite the method for O[N] complexity
 	}
 	@Override
 	public void sort(Comparator<T> comp) {
 		//O[N * LogN]
 		Arrays.sort(array, 0, size, comp);
 		
+	}
+	
+	@Override
+	public int sortedSearch(T pattern, Comparator<T> comp) {
+		//implied that array is sorted in accordance with a given comparator
+		int left = 0;
+		int right = size - 1;
+		int middle = 0;
+		int res = -1;
+		while (left <= right) {
+			middle = (left + right) / 2;
+			int resComp = comp.compare(pattern, array[middle]);
+			if (resComp == 0) {
+				res = middle;
+				break;
+			}
+			if (resComp > 0) {
+				left = middle + 1;
+			} else {
+				right = middle - 1;
+			}
+		}
+		return  left > right ? -(left + 1) : res;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public void clear() {
+		array = (T[]) new Object[DEFAULT_CAPACITY];
+		size = 0;
+		
+	}
+	
+	@Override
+	public Iterator<T> iterator() {
+		// Auto-generated method stub
+		return new ArrayListIterator();
 	}
 	
 
