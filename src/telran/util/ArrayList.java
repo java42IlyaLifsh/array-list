@@ -11,6 +11,7 @@ public class ArrayList<T> implements List<T> {
 	private T[] array;
 	private int size = 0; 
 	
+	// V.R. Well done
 	private class ArrayListIterator implements Iterator<T> {
 		int currentInd = 0;
 		 
