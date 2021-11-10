@@ -5,10 +5,10 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
-public class ArrayList<T> implements List<T> {
+public class ArrayList<T> extends AbstractList<T> {
 	private static final int DEFAULT_CAPACITY = 16;
 	private T[] array;
-	private int size = 0; 
+	
 	private class ArrayListIterator implements Iterator<T> {
 int current = 0;
 		@Override
@@ -73,11 +73,7 @@ int current = 0;
 		return res;
 	}
 
-	@Override
-	public int size() {
-		//O[1]
-		return size;
-	}
+	
 
 	@Override
 	public T get(int index) {
@@ -85,10 +81,7 @@ int current = 0;
 		return isValidIndex(index) ? array[index] : null;
 	}
 
-	private boolean isValidIndex(int index) {
-		
-		return index >= 0 && index < size;
-	}
+	
 	@Override
 	public T remove(int index) {
 		//O[N]
@@ -136,11 +129,9 @@ int current = 0;
 		int oldSize = size;
 		int indCopy = 0;
 		for (int i = 0; i < oldSize; i++) {
-
 			if (!predicate.test(array[i])) {
 				array[indCopy++] = array[i];
 			} 
-
 		}
 		size = indCopy;
 		
@@ -180,7 +171,6 @@ int current = 0;
 	public void clear() {
 		array = (T[]) new Object[DEFAULT_CAPACITY];
 		size = 0;
-
 		//FIXME
 		
 	}
@@ -188,7 +178,6 @@ int current = 0;
 	public Iterator<T> iterator() {
 		
 		return new ArrayListIterator();
-
 	}
 	
 
