@@ -30,6 +30,7 @@ public class ArrayList<T> implements List<T> {
 		public void remove() {
 			//removes element that has been returned by the last next call
 			//that is previous of the current.
+			//[YG] major bug: reproducing test - removing all elements by iterator
 			ArrayList.this.remove(currentInd-1);
 		} 
 	}
