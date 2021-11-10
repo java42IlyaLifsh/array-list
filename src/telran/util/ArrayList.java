@@ -10,21 +10,22 @@ public class ArrayList<T> implements List<T> {
 	private T[] array;
 	private int size = 0; 
 	private class ArrayListIterator implements Iterator<T> {
-
+int current = 0;
 		@Override
 		public boolean hasNext() {
-			// TODO Auto-generated method stub
-			return false;
+			
+			return current < size;
 		}
 
 		@Override
 		public T next() {
-			// TODO Auto-generated method stub
-			return null;
+			
+			return array[current++];
 		}
 		@Override
 		public void remove() {
-			//TODO removes element that has been received from the last next()
+			//removes element that has been received from the last next()
+			ArrayList.this.remove(--current);
 			
 		}
 	}
@@ -182,8 +183,8 @@ public class ArrayList<T> implements List<T> {
 	}
 	@Override
 	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new ArrayListIterator();
 	}
 	
 
